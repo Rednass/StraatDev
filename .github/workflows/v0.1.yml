@@ -27,7 +27,7 @@ jobs:
               run: docker-compose ps
               
             - name: Populate DB
-              run: docker-compose exec php artisan migrate:refresh --seed --force
+              run: docker-compose exec -T php artisan migrate:refresh --seed --force
               
             - name: Generate APP_KEY
-              run: docker-compose exec php artisan key:generate --force
+              run: docker-compose exec -T php artisan key:generate --force
