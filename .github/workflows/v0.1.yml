@@ -24,7 +24,7 @@ jobs:
               run: docker-compose ps
               
             - name: Populate DB
-              run: export COMPOSE_INTERACTIVE_NO_CLI=1 && docker-compose -f docker-compose.prod.yml exec php artisan migrate:refresh --seed --force
+              run: docker-compose -f docker-compose.prod.yml exec -T php php artisan migrate:refresh --seed --force
               
             - name: Generate APP_KEY
-              run: export COMPOSE_INTERACTIVE_NO_CLI=1 && docker-compose -f docker-compose.prod.yml exec php artisan key:generate --force
+              run: docker-compose -f docker-compose.prod.yml exec -T php php artisan key:generate --force
