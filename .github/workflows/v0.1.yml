@@ -39,6 +39,6 @@ jobs:
               with:
                 token: ${{ secrets.GITHUB_TOKEN }}
                 docker_name: 'owasp/zap2docker-weekly'
-                target: 'https://127.0.0.1/'
+                target: 'http://127.0.0.1/'
 #                rules_file_name: '.zap/rules.tsv'
                 cmd_options: -a
