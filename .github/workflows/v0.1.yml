@@ -9,8 +9,11 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v1
               
+            - name: Use example environment variables
+              run: mv .env.example .env && sed -i 's/APP_ENV=local/APP_ENV=production/g' .env && sed -i 's/APP_DEBUG=true/APP_DEBUG=false/g' .env
+              
             - name: Build the docker-compose stack
-              run: docker-compose up -d
+              run: docker-compose -f docker-compose.prod.yml up -d
               
             - name: Wait 15 seconds
               uses: jakejarvis/wait-action@master
@@ -21,11 +24,11 @@ jobs:
               run: docker-compose ps
               
             - name: Populate DB
-              run: docker-compose exec php artisan migrate:refresh --seed --force
+              run: docker-compose -f docker-compose.prod.yml exec php artisan migrate:refresh --seed --force
               env:
                 COMPOSE_INTERACTIVE_NO_CLI: 1
               
             - name: Generate APP_KEY
-              run: docker-compose exec php artisan key:generate --force
+              run: docker-compose -f docker-compose.prod.yml exec php artisan key:generate --force
               env:
                 COMPOSE_INTERACTIVE_NO_CLI: 1
