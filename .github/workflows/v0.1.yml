@@ -28,3 +28,11 @@ jobs:
               
             - name: Generate APP_KEY
               run: docker-compose -f docker-compose.prod.yml exec -T php php artisan key:generate --force
+
+            - name: ZAP Scan
+              uses: zaproxy/action-full-scan@v0.1.0
+              with:
+                token: ${{ secrets.GITHUB_TOKEN }}
+                docker_name: 'owasp/zap2docker-weekly'
+                target: 'https://127.0.0.1/'
+                cmd_options: '-a
