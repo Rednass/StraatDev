@@ -35,3 +35,4 @@ jobs:
               with:
                 target: 'https://127.0.0.1'
                 docker_name: 'owasp/zap2docker-weekly'
+                cmd_options: '-I'
