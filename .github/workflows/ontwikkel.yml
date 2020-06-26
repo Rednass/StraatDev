@@ -42,6 +42,3 @@ jobs:
                 target: 'https://127.0.0.1/'
 #                rules_file_name: '.zap/rules.tsv'
                 cmd_options: '-a
-
-#            - name: Execute PHPStan
-#              run: composer analyse
