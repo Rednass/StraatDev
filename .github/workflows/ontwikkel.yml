@@ -35,13 +35,13 @@ jobs:
             - name: Execute tests (Unit and Feature tests) via PHPUnit
               run: composer test
             - name: ZAP Scan
-              uses: zaproxy/action-baseline@v0.3.0
+              uses: zaproxy/action-full-scan@v0.1.0
               with:
                 token: ${{ secrets.GITHUB_TOKEN }}
-                docker_name: 'owasp/zap2docker-stable'
-                target: 'https://127.0.0.1'
-#                rules_file_name: '.zap/rules.tsv'
-                cmd_options: '-a'
+                docker_name: 'owasp/zap2docker-weekly'
+                target: 'https://www.zaproxy.org/'
+                rules_file_name: '.zap/rules.tsv'
+                cmd_options: '-a
 
 #            - name: Execute PHPStan
 #              run: composer analyse
