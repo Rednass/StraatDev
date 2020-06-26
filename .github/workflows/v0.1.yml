@@ -9,27 +9,27 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v1
               
-            - name: Use example environment variables
+            - name: Use example environment, and change from "local" to "production".
               run: mv .env.example .env && sed -i 's/APP_ENV=local/APP_ENV=production/g' .env && sed -i 's/APP_DEBUG=true/APP_DEBUG=false/g' .env
               
             - name: Build the docker-compose stack
               run: docker-compose -f docker-compose.prod.yml up -d
               
-            - name: Wait 15 seconds
+            - name: Wait 15 seconds to initialize containers
               uses: jakejarvis/wait-action@master
               with:
                 time: '15s'
                 
-            - name: Check running containers
+            - name: Container running check
               run: docker-compose ps
               
             - name: Populate DB
               run: docker-compose -f docker-compose.prod.yml exec -T php php artisan migrate:refresh --seed --force
               
-            - name: Generate APP_KEY
+            - name: Generate Laravel APP_KEY
               run: docker-compose -f docker-compose.prod.yml exec -T php php artisan key:generate --force
 
-            - name: ZAP Scan
+            - name: OWASP ZAP Security Baseline Scan
 #              uses: zaproxy/action-full-scan@v0.1.0
               uses: zaproxy/action-baseline@v0.3.0
               with:
