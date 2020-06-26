@@ -26,9 +26,9 @@ jobs:
             - name: Populate DB
               run: docker-compose exec php artisan migrate:refresh --seed --force
               env:
-              - COMPOSE_INTERACTIVE_NO_CLI=1
+                COMPOSE_INTERACTIVE_NO_CLI=1
               
             - name: Generate APP_KEY
               run: docker-compose exec php artisan key:generate --force
               env:
-              - COMPOSE_INTERACTIVE_NO_CLI=1
+                COMPOSE_INTERACTIVE_NO_CLI=1
